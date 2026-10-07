@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+/.venv/
+/venv/
+
+# Environment files (keep example templates)
+**/.env
+**/.env.*
+!**/.env.example
+
+# Local databases and uploaded files
+*.sqlite3
+*.sqlite3-journal
+*.db
+/backend/media/
+
+# Node.js and Next.js
+**/node_modules/
+**/.next/
+**/.vercel/
+**/out/
+**/coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Editor and operating-system files
+.DS_Store
+Thumbs.db

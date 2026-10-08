@@ -19,7 +19,10 @@ class TokenApiTests(TestCase):
             available_days='Mon, Wed, Fri',
         )
 
-    def test_public_booking_response_does_not_return_patient_details(self):
+    def test_authenticated_user_can_book_a_token(self):
+        user = User.objects.create_user(username='patient-user', password='test-password')
+        self.client.force_authenticate(user=user)
+
         response = self.client.post(
             '/api/tokens/',
             {
@@ -44,6 +47,19 @@ class TokenApiTests(TestCase):
                 phone_number='555-0100',
             ).exists()
         )
+
+    def test_unauthenticated_user_cannot_book_a_token(self):
+        response = self.client.post(
+            '/api/tokens/',
+            {
+                'patient_name': 'Example Patient',
+                'phone_number': '555-0100',
+                'doctor_id': self.doctor.id,
+            },
+            format='json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_public_live_queue_contains_only_display_fields(self):
         Token.objects.create(

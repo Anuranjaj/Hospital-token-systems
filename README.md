@@ -95,6 +95,7 @@ Before publishing, inspect `git status` and verify that no real secrets or perso
 - Deploy Django separately and configure `DJANGO_SECRET_KEY`, `DJANGO_DEBUG=False`, `DJANGO_ALLOWED_HOSTS`, and `DJANGO_CORS_ALLOWED_ORIGINS` in the backend host's environment settings.
 - This project currently configures SQLite at a local file path. SQLite is suitable for local development, but production database hosting, persistence, backups, and database configuration have not been implemented or verified. Choose and configure a production database before deploying Django; no database migration is performed as part of this setup.
 - Use HTTPS for both deployed applications and allow only the real frontend origin in production CORS settings.
+- `python manage.py check --deploy` currently warns that HSTS, HTTPS redirection, and secure session/CSRF cookie settings are not configured. Review and configure these for the actual backend host or reverse proxy before production; HSTS should only be enabled once HTTPS is correctly enforced.
 
 ## Checks
 

@@ -45,8 +45,10 @@ class TokenViewSet(viewsets.ModelViewSet):
     serializer_class = TokenSerializer
 
     def get_permissions(self):
-        if self.action in ['create', 'live']:
+        if self.action == 'live':
             return [permissions.AllowAny()]
+        if self.action == 'create':
+            return [permissions.IsAuthenticated()]
         return [permissions.IsAdminUser()]
 
     def get_serializer_class(self):
